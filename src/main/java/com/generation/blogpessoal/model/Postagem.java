@@ -66,6 +66,7 @@ public class Postagem {
 		this.data = data;
 	}
 	
+	//	@autor é uma anotação do Javadoc, o javadoc ajuda a fazer a documentação de uma api através dos comentários.
+	//JPA => Todos os métodos para manipular o BD 
 	
-
 }
