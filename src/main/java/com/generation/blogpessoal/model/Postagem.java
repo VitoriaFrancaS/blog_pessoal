@@ -1,3 +1,6 @@
+/*Model: essa camada é reponsável pela abstração dos objetos que estão registrados nas tabelas, que seram gerada no banco de dados 
+ * as classes criada nessa camada representam os objetos que estão no banco de dados
+ */
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
@@ -16,8 +19,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity //define o que será uma tabela
-@Table(name = "tb_postagens") //Nomeia a tabela 
+@Entity //criando uma tabela
+@Table(name = "tb_postagens") //está nomenado a tabela 
 public class Postagem {
 	
 	@Id //primary key
@@ -29,9 +32,9 @@ public class Postagem {
 	@Column(length = 100) //sobrescreve a quantidade padrão de caracteres máximo 
 	private String titulo;
 		
-	@NotBlank(message = "O atributo texto é Obrigatório!")
+	@NotBlank(message = "O atributo texto é Obrigatório!") //não permite que o atributo seja nulo ou que tenha espaços em branco. Já o notnull permitiria os espaços em branco 
 	@Column(length = 1000)
-	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")//para definir o min e max de caracteres que um usuario pode escrever no atributo
 	private String texto;
 		
 	@UpdateTimestamp //a data será gerada pelo banco de dados 
@@ -40,6 +43,11 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
+	
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -80,6 +88,17 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
+	
 	
 	
 	

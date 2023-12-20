@@ -24,9 +24,9 @@ import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
-@RestController
-@RequestMapping("/postagens")
-@CrossOrigin(origins = "+", allowedHeaders = "+")
+@RestController //define que a classe receberá requisições como URL(endpoint), verbo(define o método HTTP que será acionado pela classe controladora), corpo da requisição
+@RequestMapping("/postagens") //é usado para mapear/ definir a URL padrão do recurso 
+@CrossOrigin(origins = "+", allowedHeaders = "+") //permitirá o recebimento de requisições de outros usuarios que não seja a máquina onde a aplicação está sendo feita  
 public class PostagemController {
 	
 	@Autowired
