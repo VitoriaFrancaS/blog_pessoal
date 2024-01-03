@@ -27,7 +27,7 @@ import com.generation.blogpessoal.service.UsuarioService;
 public class UsuarioControllerTest {
 	
 	@Autowired
-	private TestRestTemplate testRestTempalte; //enviar as requisições para a aplicação
+	private TestRestTemplate testRestTemplate; //enviar as requisições para a aplicação
 	
 	@Autowired
 	private UsuarioService usuarioService; //para persistir os objetos no Banco de dados de testes com a senha criptografada.
@@ -51,7 +51,7 @@ public class UsuarioControllerTest {
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario( //Essa parte do código equivale ao post do insomnia
 				0L, "Vitória França", "vitoria.sousa@gmail.com", "12345678910", "-"));
 		
-		ResponseEntity<Usuario> corpoResposta = testRestTempalte.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
+		ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
 		
 		assertEquals(HttpStatus.CREATED, corpoResposta.getStatusCode());
 	}
@@ -65,7 +65,7 @@ public class UsuarioControllerTest {
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario( //Essa parte do código equivale ao post do insomnia
 				0L, "Maria de Jesus", "maria.jesus@gmail.com.br", "69874512310", "-"));
 		
-		ResponseEntity<Usuario> corpoResposta = testRestTempalte.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
+		ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
 		
 		assertEquals(HttpStatus.BAD_REQUEST, corpoResposta.getStatusCode());
 	}
@@ -82,8 +82,7 @@ public class UsuarioControllerTest {
 		
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
-		ResponseEntity<Usuario> corpoResposta = testRestTemplate
-			.withBasicAuth("vitoria.sousa@gmail.com", "12345678910")
+		ResponseEntity<Usuario> corpoResposta = testRestTemplate.withBasicAuth( "root@root.com", "rootroot")
 			.exchange("/usuarios/atualizar", HttpMethod.PUT, corpoRequisicao, Usuario.class);
 
 		assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
